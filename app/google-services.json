@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1095435052163",
+    "firebase_url": "https://fifthbro-2862a-default-rtdb.firebaseio.com",
+    "project_id": "fifthbro-2862a",
+    "storage_bucket": "fifthbro-2862a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095435052163:android:af65e614feb97c63bf67b6",
+        "android_client_info": {
+          "package_name": "com.example.fifthbro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095435052163-k4enijlci8ijhvt55g5c0o34ruf42fq9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fifthbro",
+            "certificate_hash": "a2f5627e4b3162d4edad28f07b7db0fa83751f89"
+          }
+        },
+        {
+          "client_id": "1095435052163-5c15viio1jngpsbkpqss2l9oqtptojcd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVht5YiUjgKWsmTMcPlJf46dUs-zp-t6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095435052163-5c15viio1jngpsbkpqss2l9oqtptojcd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fifthbro">
         <activity
+            android:name=".ActivityListItems"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityListBorrow"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityRegisterUser"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
