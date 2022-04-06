@@ -3,7 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/KM/Desktop/KM/KmSUTD/Term 4/InfoSys/InfoSys1D-main/app/src/main/res/layout/activity_add_item.xml" value="0.1796875" />
+        <entry key="..\:/Users/KM/Desktop/KM/KmSUTD/Term 4/InfoSys/InfoSys1D-main/app/src/main/res/layout/activity_borrow.xml" value="0.1796875" />
+        <entry key="..\:/Users/KM/Desktop/KM/KmSUTD/Term 4/InfoSys/InfoSys1D-main/app/src/main/res/layout/activity_logged_in.xml" value="0.1796875" />
         <entry key="..\:/Users/KM/Desktop/KM/KmSUTD/Term 4/InfoSys/InfoSys1D-main/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/KM/Desktop/KM/KmSUTD/Term 4/InfoSys/InfoSys1D-main/app/src/main/res/layout/activity_register_user.xml" value="0.1796875" />
+        <entry key="..\:/Users/KM/Desktop/KM/KmSUTD/Term 4/InfoSys/InfoSys1D-main/app/src/main/res/layout/activity_show_inventory.xml" value="0.1796875" />
+        <entry key="..\:/Users/KM/Desktop/KM/KmSUTD/Term 4/InfoSys/InfoSys1D-main/app/src/main/res/layout/bookings_row.xml" value="0.1796875" />
+        <entry key="..\:/Users/KM/Desktop/KM/KmSUTD/Term 4/InfoSys/InfoSys1D-main/app/src/main/res/layout/item_row.xml" value="0.1796875" />
         <entry key="..\:/Users/KM/Desktop/KM/KmSUTD/Term 4/InfoSys/testbro/app/src/main/res/layout/activity_add_item.xml" value="0.1796875" />
         <entry key="..\:/Users/KM/Desktop/KM/KmSUTD/Term 4/InfoSys/testbro/app/src/main/res/layout/activity_booking.xml" value="0.1796875" />
         <entry key="..\:/Users/KM/Desktop/KM/KmSUTD/Term 4/InfoSys/testbro/app/src/main/res/layout/activity_borrow.xml" value="0.1796875" />
