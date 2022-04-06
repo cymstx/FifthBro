@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityLoggedIn">
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome"
+        android:textAlignment="center"
+        android:textSize="60sp"
+        android:fontFamily="sans-serif-black"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="60dp"
+        />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/welcome"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        />
+
+    <TextView
+        android:id="@+id/club"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:text="5th Row:"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        />
+
+    <TextView
+        android:id="@+id/displayName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/welcome"
+        app:layout_constraintLeft_toRightOf="@id/name"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/displayClub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/displayName"
+        app:layout_constraintLeft_toRightOf="@id/club"
+        android:layout_marginTop="20dp"
+        />
+
+    <Button
+        android:id="@+id/inventory"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:text="Inventory"
+        android:textSize="19dp"
+        android:backgroundTint="#0ED6B9"
+        app:layout_constraintTop_toBottomOf="@id/displayClub"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="20dp"
+        />
+
+    <Button
+        android:id="@+id/borrow"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:text="Borrow"
+        android:textSize="19sp"
+        android:backgroundTint="#0ED6B9"
+        app:layout_constraintTop_toBottomOf="@id/displayClub"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="20dp"
+        />
+    <Button
+        android:id="@+id/bookings"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:text="My Bookings"
+        android:textSize="19sp"
+        android:backgroundTint="#0ed6b9"
+        app:layout_constraintTop_toBottomOf="@id/borrow"
+        app:layout_constraintLeft_toLeftOf="@id/borrow"
+        android:layout_marginTop="30dp"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
