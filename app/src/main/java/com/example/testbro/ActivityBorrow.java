@@ -118,7 +118,7 @@ public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnI
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot item : snapshot.getChildren()){
                     ItemClass itemClass = item.getValue(ItemClass.class);
-                    itemList.add(itemClass);
+                    itemList.add(new ItemClass(itemClass));
                 }
                 myAdapter.notifyDataSetChanged();
             }

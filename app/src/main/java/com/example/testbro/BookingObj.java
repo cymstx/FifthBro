@@ -1,11 +1,13 @@
 package com.example.testbro;
 
+import androidx.annotation.NonNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.UUID;
 
 public class BookingObj {
-    public String id;
+    public String bookingId;
     private String itemId;
     private String userId;
     private String userName;
@@ -19,7 +21,7 @@ public class BookingObj {
     BookingObj(){}
 
     BookingObj(String itemId, String userId,String userName, String itemName, TimePeriod timing){
-        this.id = UUID.randomUUID().toString();
+        this.bookingId = UUID.randomUUID().toString();
         this.itemId = itemId;
         this.userId = userId;
         this.timing = timing;
@@ -28,7 +30,7 @@ public class BookingObj {
     }
 
     public String getBookingId() {
-        return id;
+        return bookingId;
     }
     public TimePeriod getTiming() {
         return timing;
@@ -54,18 +56,18 @@ public class BookingObj {
         return userId;
     }
 
-    public boolean isComplete() {
+    public boolean getIsComplete() {
         return isComplete;
     }
 
-    public void forceComplete(){
-        isComplete = true;
+    public void setComplete(boolean complete){
+        isComplete = complete;
     }
     public void forceUncomplete(){
         isComplete = false;
     }
 
-    public boolean isLate() {
+    public boolean getIsLate() {
         return isLate;
     }
 
@@ -73,22 +75,23 @@ public class BookingObj {
         isLate = late;
     }
 
-    public boolean isCheckIn() {
+    public boolean getIsCheckIn() {
         return isCheckIn;
     }
 
-    public boolean isCheckOut() {
+    public boolean getIsCheckOut() {
         return isCheckOut;
     }
 
-    public void setCheckIn(boolean checkIn) {
+    public void setIsCheckIn(boolean checkIn) {
         isCheckIn = checkIn;
     }
 
-    public void setCheckOut(boolean checkOut) {
+    public void setIsCheckOut(boolean checkOut) {
         isCheckOut = checkOut;
     }
 
+    @NonNull
     @Override
     public String toString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault());
