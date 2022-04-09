@@ -8,7 +8,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ItemClass implements Serializable {
-    private String name, itemID, clubID, availability;
+    private String name, itemID, clubID;
+    public boolean availability;
     private ArrayList<String> log;
 
     public ItemClass(){
@@ -25,21 +26,24 @@ public class ItemClass implements Serializable {
     public ItemClass(String name, String clubID){
         this.clubID = clubID;
         this.name = name;
-        this.availability = "Available";
+        this.availability = true;
         this.itemID = UUID.randomUUID().toString();
         this.log = new ArrayList<String>();
     }
 
-    public String getAvailability(){
-        return availability;
+    public boolean getAvailability(){
+        return this.availability;
+    }
+    public void setAvailability(boolean av) {this.availability = av;}
+
+    public String retAvail() {
+        if (this.availability) {
+            return "Available";
+        } else {
+            return "Unavailable";
+        }
     }
 
-    public boolean isInStock(){
-        if(this.availability == "Available"){
-            return true;
-        }
-        return false;
-    }
 
     public String getName() {
         return name;

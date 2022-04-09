@@ -33,8 +33,8 @@ public class MyBookingsAdapter extends RecyclerView.Adapter<MyBookingsAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         BookingObj bookingObj = myBookings.get(position);
         holder.itemName.setText(bookingObj.getItemName());
-        holder.itemStartTime.setText(bookingObj.getTiming().getStart().toString());
-        holder.itemEndTime.setText(bookingObj.getTiming().getEnd().toString());
+        holder.itemStartTime.setText(bookingObj.start);
+        holder.itemEndTime.setText(bookingObj.end);
     }
 
     @Override

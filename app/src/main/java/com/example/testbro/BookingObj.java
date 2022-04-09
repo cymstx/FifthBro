@@ -12,7 +12,9 @@ public class BookingObj {
     private String userId;
     private String userName;
     private String itemName;
-    private TimePeriod timing;
+//    public TimePeriod timing;
+    public String start;
+    public String end;
     boolean isLate = false;
     boolean isCheckOut = false;
     boolean isCheckIn = false;
@@ -24,7 +26,9 @@ public class BookingObj {
         this.bookingId = UUID.randomUUID().toString();
         this.itemId = itemId;
         this.userId = userId;
-        this.timing = timing;
+//        this.timing = timing;
+        this.start = timing.start;
+        this.end = timing.end;
         this.userName = userName;
         this.itemName = itemName;
     }
@@ -32,9 +36,9 @@ public class BookingObj {
     public String getBookingId() {
         return bookingId;
     }
-    public TimePeriod getTiming() {
-        return timing;
-    }
+//    public TimePeriod getTiming() {
+//        return timing;
+//    }
 
     public String getItemName() {
         return itemName;
@@ -44,9 +48,9 @@ public class BookingObj {
         return userName;
     }
 
-    public void setTiming(TimePeriod timing) {
-        this.timing = timing;
-    }
+//    public void setTiming(TimePeriod timing) {
+//        this.timing = timing;
+//    }
 
     public String getItemId() {
         return itemId;
@@ -95,8 +99,8 @@ public class BookingObj {
     @Override
     public String toString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault());
-        return simpleDateFormat.format(this.getTiming().getStart()) + " - "
-                +simpleDateFormat.format(this.getTiming().getEnd()) +" by \n"
+        return simpleDateFormat.format(start) + " - "
+                +simpleDateFormat.format(end) +" by \n"
                 +this.getUserName();
     }
 }
