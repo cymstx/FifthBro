@@ -254,102 +254,73 @@ public class ActivityBooking extends AppCompatActivity {
             TimePeriod timing = new TimePeriod(start, end);
             BookingObj booking = new BookingObj(itemId, userId, userName, itemName, timing);
             // check if booking is not overlapping
+            referenceUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    UserClass userInstance = snapshot.getValue(UserClass.class);
+                    userLog = userInstance.getBookings();
+                    if (userLog == null) {
+                        userLog = new ArrayList<>();
+                    }
+                    userLog.add(booking.getBookingId());
+                    referenceUsers.child(userId).child("bookings").setValue(userLog).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+//                                Toast.makeText(ActivityBooking.this,"Saved to userlog", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            referenceBookings.child(booking.getBookingId()).setValue(booking).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+//                        Toast.makeText(ActivityBooking.this, "Added booking", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+            referenceTimeperiod.child(booking.getBookingId()).setValue(timing).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+//                        Toast.makeText(ActivityBooking.this, "Added TP", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
 
             referenceItem.child(itemId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     ItemClass itemInstance = snapshot.getValue(ItemClass.class);
                     itemLog = itemInstance.getLog();
-                    final boolean[] overlap = new boolean[1];
                     if (itemLog == null) {
                         itemLog = new ArrayList<>();
                         itemLog.add(booking.getBookingId());
-                        referenceUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                UserClass userInstance = snapshot.getValue(UserClass.class);
-                                userLog = userInstance.getBookings();
-                                if (userLog == null) {
-                                    userLog = new ArrayList<>();
-                                }
-                                userLog.add(booking.getBookingId());
-                                Log.d("used Log", userLog.toString());
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-
                         Snackbar.make(findViewById(R.id.LinearLayout), "Booked", Snackbar.LENGTH_SHORT).show();
-//                        simpleDateFormat.format(booking.getTiming().getStart());
-                        // once we are done
-                        storeAttributes(); // update instances
-                        referenceBookings.child(booking.getBookingId()).setValue(booking).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        referenceClub.child(clubID).child("items").child(itemId).child("log").setValue(itemLog).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(ActivityBooking.this, "Added booking", Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(ActivityBooking.this,"Saved to itemlog", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
-                        referenceTimeperiod.child(booking.getBookingId()).setValue(timing).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(ActivityBooking.this, "Added TP", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-                        printBookings(); // update our listview
+
                     } else {
-                            Log.d("item Log", itemLog.toString());
-                            referenceUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    UserClass userInstance = snapshot.getValue(UserClass.class);
-                                    userLog = userInstance.getBookings();
-                                    if (userLog == null) {
-                                        userLog = new ArrayList<>();
-                                    }
-                                    userLog.add(booking.getBookingId());
-                                    Log.d("used Log", userLog.toString());
-                                }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
-
-
-                            Snackbar.make(findViewById(R.id.LinearLayout), "Booked", Snackbar.LENGTH_SHORT).show();
-//                        simpleDateFormat.format(booking.getTiming().getStart());
-                            // once we are done
-                            storeAttributes(); // update instances
-                            referenceBookings.child(booking.getBookingId()).setValue(booking).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(ActivityBooking.this, "Added booking", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-                            referenceTimeperiod.child(booking.getBookingId()).setValue(timing).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(ActivityBooking.this, "Added TP", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-                            printBookings(); // update our listview
-
-
+                        itemLog.add(booking.getBookingId());
+                        storeAttributes();
                         for (String i : itemLog) {
-                            itemLog.add(booking.getBookingId());
+                            if (i.equals(booking.getBookingId())){
+                                continue;
+                            }
                             referenceTimeperiod.child(i).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -366,18 +337,18 @@ public class ActivityBooking extends AppCompatActivity {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 userLog.remove(booking.getBookingId());
+                                                storeAttributes();
 
                                             }
-
                                             @Override
                                             public void onCancelled(@NonNull DatabaseError error) {
 
                                             }
                                         });
                                         itemLog.remove(booking.getBookingId());
+                                        storeAttributes();
                                     }
                                 }
-
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
 
@@ -385,19 +356,14 @@ public class ActivityBooking extends AppCompatActivity {
                             });
                         }
                     }
-
-                    // add booking to both user and item logs
-
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
-
-
         }
-
     }
 
     //
@@ -481,19 +447,40 @@ public class ActivityBooking extends AppCompatActivity {
 
 
     private void storeAttributes(){
+//        itemLog = new ArrayList<>();
+//        itemLog.add(bookingid);
+//        referenceUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                UserClass userInstance = snapshot.getValue(UserClass.class);
+//                userLog = userInstance.getBookings();
+//                if (userLog == null) {
+//                    userLog = new ArrayList<>();
+//                }
+//                userLog.add(bookingid);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+
         referenceUsers.child(userId).child("bookings").setValue(userLog).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(ActivityBooking.this,"Saved to userlog", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(ActivityBooking.this,"Saved to userlog", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
         referenceClub.child(clubID).child("items").child(itemId).child("log").setValue(itemLog).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(ActivityBooking.this,"Saved to itemlog", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(ActivityBooking.this,"Saved to itemlog", Toast.LENGTH_LONG).show();
                 }
             }
         });
