@@ -29,6 +29,7 @@ public class ActivityShowInventory extends AppCompatActivity implements View.OnC
     Bundle extras;
     String club;
     Button btnAddItem;
+    Button showLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,8 @@ public class ActivityShowInventory extends AppCompatActivity implements View.OnC
 
         btnAddItem = findViewById(R.id.addItem);
         btnAddItem.setOnClickListener(this);
+
+        showLog = findViewById(R.id.displayLog);
 
         recyclerView = findViewById(R.id.recyclerView);
         referenceItems = FirebaseDatabase.getInstance().getReference("Clubs").child(club).child("items");
@@ -96,6 +99,8 @@ public class ActivityShowInventory extends AppCompatActivity implements View.OnC
 
     @Override
     public void onNoteClick(int position) {
-        return;
+        ItemClass item = items.get(position);
+        Intent i2 = new Intent(ActivityShowInventory.this, ActivityShowInventoryLog.class);
+        i2.putExtra("item", item);
     }
 }
