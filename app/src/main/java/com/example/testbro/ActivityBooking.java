@@ -252,7 +252,7 @@ public class ActivityBooking extends AppCompatActivity {
         } else {
             // create new booking object
             TimePeriod timing = new TimePeriod(start, end);
-            BookingObj booking = new BookingObj(itemId, userId, userName, itemName, timing);
+            BookingObj booking = new BookingObj(itemId, userId, userName, itemName, timing, clubID);
             // check if booking is not overlapping
             referenceUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

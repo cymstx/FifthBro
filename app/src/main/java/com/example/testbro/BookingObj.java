@@ -13,6 +13,7 @@ public class BookingObj implements Serializable {
     private String userId;
     private String userName;
     private String itemName;
+    private String clubId;
 //    public TimePeriod timing;
     public String start;
     public String end;
@@ -23,7 +24,7 @@ public class BookingObj implements Serializable {
 
     BookingObj(){}
 
-    BookingObj(String itemId, String userId,String userName, String itemName, TimePeriod timing){
+    BookingObj(String itemId, String userId,String userName, String itemName, TimePeriod timing, String clubID){
         this.bookingId = UUID.randomUUID().toString();
         this.itemId = itemId;
         this.userId = userId;
@@ -31,6 +32,7 @@ public class BookingObj implements Serializable {
         this.start = timing.start;
         this.end = timing.end;
         this.userName = userName;
+        this.clubId = clubID;
         this.itemName = itemName;
     }
 
@@ -40,6 +42,7 @@ public class BookingObj implements Serializable {
 //    public TimePeriod getTiming() {
 //        return timing;
 //    }
+    public String getClubId(){return clubId;}
 
     public String getItemName() {
         return itemName;
