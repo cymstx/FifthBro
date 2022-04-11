@@ -22,9 +22,6 @@ import java.util.ArrayList;
 public class MyInventoryAdapter extends RecyclerView.Adapter<MyInventoryAdapter.MyViewHolder> {
 
     Context context;
-    ItemClass item;
-    ArrayList<String> itemLog;
-    DatabaseReference referenceItems;
     ArrayList<BookingObj> bookings;
 
     MyInventoryAdapter(Context ctx, ArrayList<BookingObj> bookings) {
@@ -41,17 +38,16 @@ public class MyInventoryAdapter extends RecyclerView.Adapter<MyInventoryAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyInventoryAdapter.MyViewHolder holder, int position) {
-        for (BookingObj booking : bookings) {
-            holder.bookingID.setText(booking.getBookingId());
-            holder.bookingUserName.setText(booking.getUserName());
-            holder.bookingStartTime.setText(booking.start);
-            holder.bookingEndTime.setText(booking.end);
-        }
+        BookingObj booking = bookings.get(position);
+        holder.bookingID.setText(booking.getBookingId());
+        holder.bookingUserName.setText(booking.getUserName());
+        holder.bookingStartTime.setText(booking.start);
+        holder.bookingEndTime.setText(booking.end);
     }
 
     @Override
     public int getItemCount() {
-        return itemLog.size();
+        return bookings.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -59,10 +55,10 @@ public class MyInventoryAdapter extends RecyclerView.Adapter<MyInventoryAdapter.
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            bookingID = itemView.findViewById(R.id.bookingID);
-            bookingUserName = itemView.findViewById(R.id.bookingUserName);
-            bookingStartTime = itemView.findViewById(R.id.bookingStartTime);
-            bookingEndTime = itemView.findViewById(R.id.bookingEndTime);
+            bookingID = itemView.findViewById(R.id.displaybookingID);
+            bookingUserName = itemView.findViewById(R.id.displayUserName);
+            bookingStartTime = itemView.findViewById(R.id.displayStartTime);
+            bookingEndTime = itemView.findViewById(R.id.displayEndTime);
         }
     }
 }

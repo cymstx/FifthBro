@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -46,8 +47,6 @@ public class ActivityShowInventory extends AppCompatActivity implements View.OnC
 
         btnAddItem = findViewById(R.id.addItem);
         btnAddItem.setOnClickListener(this);
-
-        showLog = findViewById(R.id.displayLog);
 
         recyclerView = findViewById(R.id.recyclerView);
         referenceItems = FirebaseDatabase.getInstance().getReference("Clubs").child(club).child("items");
@@ -93,14 +92,15 @@ public class ActivityShowInventory extends AppCompatActivity implements View.OnC
                 Intent i = new Intent(ActivityShowInventory.this, ActivityAddItem.class);
                 i.putExtra("club", club);
                 startActivity(i);
-                break;
         }
     }
 
     @Override
     public void onNoteClick(int position) {
+        // try catch here
         ItemClass item = items.get(position);
         Intent i2 = new Intent(ActivityShowInventory.this, ActivityShowInventoryLog.class);
         i2.putExtra("item", item);
+        startActivity(i2);
     }
 }

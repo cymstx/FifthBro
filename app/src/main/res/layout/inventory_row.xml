@@ -24,8 +24,8 @@
                 android:id="@+id/bookingID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:text="Booking ID :"
+                android:layout_marginStart="15dp"
+                android:text="Booking ID:"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -38,11 +38,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="User :"
+                android:text="User:"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="@id/bookingID"
+                app:layout_constraintRight_toRightOf="@id/bookingID"
                 app:layout_constraintTop_toBottomOf="@id/bookingID"
                 android:layout_marginTop="2dp"
                 />
@@ -51,10 +51,11 @@
                 android:id="@+id/bookingStartTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start :"
+                android:text="Start:"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="@id/bookingUserName"
+                app:layout_constraintRight_toRightOf="@id/bookingUserName"
                 app:layout_constraintTop_toBottomOf="@id/bookingUserName"
                 android:layout_marginTop="2dp"
                 />
@@ -63,12 +64,54 @@
                 android:id="@+id/bookingEndTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="End :"
+                android:text="End:"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="@id/bookingStartTime"
+                app:layout_constraintRight_toRightOf="@id/bookingStartTime"
                 app:layout_constraintTop_toBottomOf="@id/bookingStartTime"
                 android:layout_marginTop="2dp"
+                />
+
+            <TextView
+                android:id="@+id/displaybookingID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                app:layout_constraintLeft_toRightOf="@id/bookingID"
+                app:layout_constraintTop_toTopOf="@id/bookingID"
+                android:layout_marginLeft="5dp"
+                />
+
+            <TextView
+                android:id="@+id/displayUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                app:layout_constraintLeft_toLeftOf="@id/displaybookingID"
+                app:layout_constraintTop_toTopOf="@id/bookingUserName"
+                />
+
+            <TextView
+                android:id="@+id/displayStartTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toTopOf="@id/bookingStartTime"
+                app:layout_constraintLeft_toLeftOf="@id/displayUserName"
+                />
+
+            <TextView
+                android:id="@+id/displayEndTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toTopOf="@id/bookingEndTime"
+                app:layout_constraintLeft_toLeftOf="@id/displayStartTime"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

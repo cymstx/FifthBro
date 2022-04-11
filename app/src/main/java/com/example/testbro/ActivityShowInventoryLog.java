@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -35,11 +36,17 @@ public class ActivityShowInventoryLog extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        bookings = new ArrayList<>();
+
+        myInventoryAdapter = new MyInventoryAdapter(this, bookings);
+        recyclerView.setAdapter(myInventoryAdapter);
+
         extras = getIntent().getExtras();
         if(extras != null) {
-            item = (ItemClass) extras.get("item");
+            item = (ItemClass) extras.getSerializable("item");
         }
 
+        Log.d("item name", item.getName());
         itemLog = item.getLog();
 
         for (String itemId : itemLog) {
@@ -47,14 +54,8 @@ public class ActivityShowInventoryLog extends AppCompatActivity {
             referenceItems.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    bookings.clear();
-                    myInventoryAdapter.notifyDataSetChanged();
-
-                    for(DataSnapshot booking : snapshot.getChildren()) {
-                        BookingObj bookingObj = booking.getValue(BookingObj.class);
-                        bookings.add(bookingObj);
-                    }
+                    BookingObj bookingObj = snapshot.getValue(BookingObj.class);
+                    bookings.add(bookingObj);
                     myInventoryAdapter.notifyDataSetChanged();
                 }
 
@@ -64,7 +65,5 @@ public class ActivityShowInventoryLog extends AppCompatActivity {
                 }
             });
         }
-        myInventoryAdapter = new MyInventoryAdapter(this, bookings);
-        recyclerView.setAdapter(myInventoryAdapter);
     }
 }
