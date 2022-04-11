@@ -34,8 +34,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/blue_middle_ground"
-            android:text="Add Item"
+            android:text="Display Log"
             android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             tools:ignore="UnknownId"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
