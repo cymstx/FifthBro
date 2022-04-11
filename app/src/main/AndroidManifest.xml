@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Testbro">
         <activity
+            android:name=".ActivityItemCheckOut"
+            android:exported="false" />
+        <activity
             android:name=".ActivityDisplayBookings"
             android:exported="false" />
         <activity

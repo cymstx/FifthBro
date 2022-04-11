@@ -141,33 +141,6 @@ public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnI
         // pass clicked item class to next activity
         Intent i = new Intent(ActivityBorrow.this, ActivityBooking.class);
         i.putExtra("ItemClass", itemClass);
-        /*String clubID = textViewSelectedClub.getText().toString().trim().toLowerCase().replaceAll("\\s","");
-        referenceClubs.child(clubID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ClubClass clubClass = snapshot.getValue(ClubClass.class);
-                parserClass = new ParserClass(clubClass);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        i.putExtra("ClubClass", parserClass.getObj());
-        referenceUsers.child(authUserID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserClass userClass = snapshot.getValue(UserClass.class);
-                i.putExtra("UserClass", userClass);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
         startActivity(i);
     }
 }

@@ -15,10 +15,12 @@ public class MyBookingsAdapter extends RecyclerView.Adapter<MyBookingsAdapter.My
 
     Context context;
     ArrayList<BookingObj> myBookings;
+    OnNoteListener myOnNoteListener;
 
-    MyBookingsAdapter(Context ctx, ArrayList<BookingObj> bookings){
+    MyBookingsAdapter(Context ctx, ArrayList<BookingObj> bookings, OnNoteListener monl){
         this.context = ctx;
         this.myBookings = bookings;
+        this.myOnNoteListener = monl;
     }
 
 
@@ -26,7 +28,7 @@ public class MyBookingsAdapter extends RecyclerView.Adapter<MyBookingsAdapter.My
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.bookings_row, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, myOnNoteListener);
     }
 
     @Override
@@ -42,14 +44,26 @@ public class MyBookingsAdapter extends RecyclerView.Adapter<MyBookingsAdapter.My
         return myBookings.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView itemName, itemStartTime, itemEndTime;
-        public MyViewHolder(@NonNull View itemView) {
+        OnNoteListener onNoteListener;
+        public MyViewHolder(@NonNull View itemView, OnNoteListener onl) {
             super(itemView);
 
             itemName = itemView.findViewById(R.id.itemName);
             itemStartTime = itemView.findViewById(R.id.itemStartTime);
             itemEndTime = itemView.findViewById(R.id.itemEndTime);
+
+            this.onNoteListener = onl;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onNoteListener.onNoteClick(getBindingAdapterPosition());
+        }
+    }
+    public interface OnNoteListener{
+        void onNoteClick(int position);
     }
 }

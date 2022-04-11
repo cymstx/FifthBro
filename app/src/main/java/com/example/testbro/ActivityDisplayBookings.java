@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ActivityDisplayBookings extends AppCompatActivity {
+public class ActivityDisplayBookings extends AppCompatActivity implements MyBookingsAdapter.OnNoteListener {
 
     // declaration
     RecyclerView recyclerView;
@@ -42,7 +45,7 @@ public class ActivityDisplayBookings extends AppCompatActivity {
         myBookings = new ArrayList<>();
         myBookingIDs = new ArrayList<>();
 
-        myBookingsAdapter = new MyBookingsAdapter(this, myBookings);
+        myBookingsAdapter = new MyBookingsAdapter(this, myBookings, this);
         recyclerView.setAdapter(myBookingsAdapter);
 
         // set references
@@ -58,21 +61,23 @@ public class ActivityDisplayBookings extends AppCompatActivity {
                     myBookingIDs.add(bookingIDs.getValue().toString());
                 }
 
-                for (String bookingID : myBookingIDs){
-                    referenceBookings.child(bookingID).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            BookingObj bookingObj = snapshot.getValue(BookingObj.class);
-                            myBookings.add(bookingObj);
-                            myBookingsAdapter.notifyDataSetChanged();
+                referenceBookings.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot bookingIDs : snapshot.getChildren()){
+                            if(myBookingIDs.contains(bookingIDs.getKey())){
+                                BookingObj bookingObj = bookingIDs.getValue(BookingObj.class);
+                                myBookings.add(bookingObj);
+                            }
                         }
+                        myBookingsAdapter.notifyDataSetChanged();
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-                }
+                    }
+                });
 
             }// myBookingIDs cannot leave here
 
@@ -82,5 +87,13 @@ public class ActivityDisplayBookings extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onNoteClick(int position) {
+        BookingObj bookingObj = myBookings.get(position);
+        Intent i = new Intent(ActivityDisplayBookings.this, ActivityItemCheckOut.class);
+        i.putExtra("BookingObj", bookingObj);
+        startActivity(i);
     }
 }

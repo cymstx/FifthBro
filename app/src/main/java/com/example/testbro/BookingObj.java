@@ -2,11 +2,12 @@ package com.example.testbro;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.UUID;
 
-public class BookingObj {
+public class BookingObj implements Serializable {
     public String bookingId;
     private String itemId;
     private String userId;
