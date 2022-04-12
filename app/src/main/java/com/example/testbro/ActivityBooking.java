@@ -441,7 +441,7 @@ public class ActivityBooking extends AppCompatActivity {
                     }
                     // booking listing list view adapter.
                     ArrayAdapter<BookingObj> arr;
-                    arr = new ArrayAdapter<BookingObj>(getApplicationContext(), android.R.layout.simple_list_item_1, listBookedTime);
+                    arr = new ArrayAdapter<BookingObj>(getApplicationContext(), R.layout.custom_list_view, listBookedTime);
                     bookingListings.setAdapter(arr);
                 }
 

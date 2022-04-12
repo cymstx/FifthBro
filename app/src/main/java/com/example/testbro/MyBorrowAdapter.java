@@ -26,7 +26,7 @@ public class MyBorrowAdapter extends RecyclerView.Adapter<MyBorrowAdapter.MyView
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.bookings_row, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.borrow_item_row, parent, false);
         return new MyViewHolder(view, mOnNoteListener);
     }
 
