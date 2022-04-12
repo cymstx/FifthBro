@@ -11,6 +11,7 @@
         android:theme="@style/Theme.Testbro">
         <activity
             android:name=".ActivityQRGen"
+            android:theme="@android:style/Theme.Dialog"
             android:exported="false"/>
         <activity
             android:name=".ActivityQRScanner"
