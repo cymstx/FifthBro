@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,6 +40,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.Phaser;
 import java.util.concurrent.TimeUnit;
 
 public class ActivityBooking extends AppCompatActivity {
@@ -107,7 +109,7 @@ public class ActivityBooking extends AppCompatActivity {
 
             }
         });
-
+        printBookings();
         startTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,6 +126,7 @@ public class ActivityBooking extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 completeBooking();
+                finish();
             }
         });
         finishBtn.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +138,7 @@ public class ActivityBooking extends AppCompatActivity {
 
         //delete function
 
-        bookingListings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*bookingListings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 // remeber to cast the bookingobj so we can get an addressable instance
@@ -180,7 +183,7 @@ public class ActivityBooking extends AppCompatActivity {
                 }
 
             }
-        });
+        });*/
     }
 
 
@@ -309,9 +312,11 @@ public class ActivityBooking extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
 //                                    Toast.makeText(ActivityBooking.this,"Saved to itemlog", Toast.LENGTH_LONG).show();
+                                    printBookings();
                                 }
                             }
                         });
+                        printBookings();
 
                     } else {
 
@@ -321,40 +326,56 @@ public class ActivityBooking extends AppCompatActivity {
                             if (i.equals(booking.getBookingId())){
                                 continue;
                             }
-                            referenceTimeperiod.child(i).addValueEventListener(new ValueEventListener() {
+                            referenceBookings.child(i).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    TimePeriod j = snapshot.getValue(TimePeriod.class);
-                                    if (j.overlap(timing)) {
-                                        Snackbar.make(findViewById(R.id.LinearLayout), "Booking overlaps " +
-                                                        userName + "'s " +
-                                                        simpleDateFormat.format(j.retStart()) + " to " +
-                                                        simpleDateFormat.format(j.retEnd())
-                                                , Snackbar.LENGTH_LONG).show();
-                                        referenceTimeperiod.child(booking.getBookingId()).removeValue();
-                                        referenceBookings.child(booking.getBookingId()).removeValue();
-                                        referenceUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                userLog.remove(booking.getBookingId());
+                                        BookingObj currBooking = snapshot.getValue(BookingObj.class);
+                                        String currBookingUserName = currBooking.getUserName();
+                                        referenceTimeperiod.child(i).addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            TimePeriod j = snapshot.getValue(TimePeriod.class);
+                                            if (j.overlap(timing)) {
+
+                                                Snackbar.make(findViewById(R.id.LinearLayout), "Booking overlaps "
+                                                                + currBookingUserName +  "'s " +
+                                                                simpleDateFormat.format(j.retStart()) + " to " +
+                                                                simpleDateFormat.format(j.retEnd())
+                                                        , Snackbar.LENGTH_LONG).show();
+                                                referenceTimeperiod.child(booking.getBookingId()).removeValue();
+                                                referenceBookings.child(booking.getBookingId()).removeValue();
+                                                referenceUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        userLog.remove(booking.getBookingId());
+                                                        storeAttributes();
+
+                                                    }
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                });
+                                                itemLog.remove(booking.getBookingId());
                                                 storeAttributes();
-
                                             }
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
+                                        }
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
 
-                                            }
-                                        });
-                                        itemLog.remove(booking.getBookingId());
-                                        storeAttributes();
-                                    }
+                                        }
+                                    });
                                 }
+
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
 
                                 }
                             });
+
+
                         }
+                        printBookings();
                     }
                 }
 
@@ -364,6 +385,7 @@ public class ActivityBooking extends AppCompatActivity {
                 }
             });
         }
+        printBookings();
     }
 
     //
@@ -371,46 +393,68 @@ public class ActivityBooking extends AppCompatActivity {
         // print title
         bookingListingsTitle.setText(itemName);
         // first we want to sort the bookings by start time
-        HashMap<String, Long> startTimeHashM = new HashMap<String, Long>();
-        referenceItem.child(itemId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                itemLog = snapshot.getValue(ItemClass.class).getLog();
-                for (String key : itemLog) {
-                    referenceTimeperiod.child(key).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            TimePeriod j = snapshot.getValue(TimePeriod.class);
-                            startTimeHashM.put(key, j.retStart().getTime());
+        ArrayList<String> ids = itemInstance.getLog();
+        Log.d("ids",ids.toString());
+        referenceBookings.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    HashMap<String, Long> startTimeHashM = new HashMap<>();
+                    HashMap<String, BookingObj> log = new HashMap<>();
+                    for(DataSnapshot item : snapshot.getChildren()){
+                        BookingObj bookingObj = item.getValue(BookingObj.class);
+                        log.put(bookingObj.getBookingId(),bookingObj);
+                    }
+                    Log.d("HASHMAP", String.valueOf(log.size()));
+                    // now we have the bookings in a log list
+                    for (Map.Entry<String,BookingObj> i : log.entrySet()) {
+                        Log.d("Time Start",i.getValue().toString());
+                        Long time = null;
+                        try {
+                            time = simpleDateFormat.parse(i.getValue().start).getTime();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
+                        if (time != null && ids.contains(i.getKey()))
+                        startTimeHashM.put(i.getKey(),time);
+                    }
+                    // Create a list from elements of HashMap
+                    List<Map.Entry<String, Long> > list =
+                            new LinkedList<Map.Entry<String, Long> >(startTimeHashM.entrySet());
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
+                    // Sort the list
+                    Collections.sort(list, new Comparator<Map.Entry<String, Long> >() {
+                        public int compare(Map.Entry<String, Long> o1,
+                                           Map.Entry<String, Long> o2)
+                        {
+                            return (o1.getValue()).compareTo(o2.getValue());
                         }
                     });
+
+                    // now we have the sorted list of key
+                    ArrayList<BookingObj> listBookedTime = new ArrayList<>();
+                    for (Map.Entry<String, Long> i : list) {
+                        Log.d("sorted", log.get(i.getKey()).start);
+                        listBookedTime.add(log.get(i.getKey()));
+                    }
+                    // booking listing list view adapter.
+                    ArrayAdapter<BookingObj> arr;
+                    arr = new ArrayAdapter<BookingObj>(getApplicationContext(), android.R.layout.simple_list_item_1, listBookedTime);
+                    bookingListings.setAdapter(arr);
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
 
-        List<Map.Entry<String, Long>> entryList = new LinkedList<>(startTimeHashM.entrySet());
-        Collections.sort(entryList, new Comparator<Map.Entry<String, Long>>() {
-            @Override
-            public int compare(Map.Entry<String, Long> t0, Map.Entry<String, Long> t1) {
-                return t0.getValue().compareTo(t1.getValue());
-            }
-        });
+
+        /*
         // now we have the sorted list of key
-        ArrayList<BookingObj> listBookedTime = new ArrayList<>();
         for (int i = 0; i < entryList.size(); i++) {
             Map.Entry<String, Long> entry = entryList.get(i);
             String key = entry.getKey();
-            referenceBookings.child(key).addValueEventListener(new ValueEventListener() {
+            db.getReference("Bookings").child(key).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     BookingObj bookingInstance = snapshot.getValue(BookingObj.class);
@@ -433,40 +477,12 @@ public class ActivityBooking extends AppCompatActivity {
 //            Log.d("currentBooking", simpleDateFormat.format(booking.getTiming().getStart()));
 //            Log.d("currentBooking", simpleDateFormat.format(booking.getTiming().getEnd()));
 
-        }
-        // use array to populate the recyclerview booking listings
+        }*/
 
-        ArrayAdapter<BookingObj> arr;
-        arr = new ArrayAdapter<BookingObj>(
-                this,
-                android.R.layout.simple_list_item_1,
-                listBookedTime
-        );
-        bookingListings.setAdapter(arr);
     }
 
 
     private void storeAttributes(){
-//        itemLog = new ArrayList<>();
-//        itemLog.add(bookingid);
-//        referenceUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                UserClass userInstance = snapshot.getValue(UserClass.class);
-//                userLog = userInstance.getBookings();
-//                if (userLog == null) {
-//                    userLog = new ArrayList<>();
-//                }
-//                userLog.add(bookingid);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
         referenceUsers.child(userId).child("bookings").setValue(userLog).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

@@ -98,7 +98,7 @@ public class ActivityDisplayBookings extends AppCompatActivity implements MyBook
     @Override
     public void onNoteClick(int position) {
         BookingObj bookingObj = myBookings.get(position);
-        Intent i = new Intent(ActivityDisplayBookings.this, ActivityItemCheckOut.class);
+        Intent i = new Intent(ActivityDisplayBookings.this, ActivityQRScanner.class);
         i.putExtra("BookingObj", bookingObj);
         startActivity(i);
     }

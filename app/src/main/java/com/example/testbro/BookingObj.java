@@ -103,8 +103,8 @@ public class BookingObj implements Serializable {
     @Override
     public String toString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault());
-        return simpleDateFormat.format(start) + " - "
-                +simpleDateFormat.format(end) +" by \n"
+        return start + " - "
+                +end +" by \n"
                 +this.getUserName();
     }
 }
