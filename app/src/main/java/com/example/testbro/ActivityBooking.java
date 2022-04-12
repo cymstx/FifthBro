@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,6 +57,7 @@ public class ActivityBooking extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat;
     String itemName, itemId, userName, userId, clubName, clubID;
     ArrayList<String> itemLog, userLog, clubLog;
+    ArrayAdapter<BookingObj> arr;
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase db;
@@ -84,6 +86,8 @@ public class ActivityBooking extends AppCompatActivity {
         referenceClub = db.getReference("Clubs");
         referenceBookings = db.getReference("Bookings");
         referenceTimeperiod = db.getReference("TimePeriods");
+        arr = new ArrayAdapter<BookingObj>(this, android.R.layout.simple_list_item_1, new ArrayList<>());
+        bookingListings.setAdapter(arr);
 
         extras = getIntent().getExtras();
         if (extras != null) {
@@ -126,7 +130,7 @@ public class ActivityBooking extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 completeBooking();
-                finish();
+                printBookings();
             }
         });
         finishBtn.setOnClickListener(new View.OnClickListener() {
@@ -436,13 +440,15 @@ public class ActivityBooking extends AppCompatActivity {
                     // now we have the sorted list of key
                     ArrayList<BookingObj> listBookedTime = new ArrayList<>();
                     for (Map.Entry<String, Long> i : list) {
-                        Log.d("sorted", new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault()).format(log.get(i.getKey()).start));
+                        Log.d("sorted", i.getKey());
                         listBookedTime.add(log.get(i.getKey()));
                     }
                     // booking listing list view adapter.
-                    ArrayAdapter<BookingObj> arr;
-                    arr = new ArrayAdapter<BookingObj>(getApplicationContext(), R.layout.custom_list_view, listBookedTime);
-                    bookingListings.setAdapter(arr);
+//                    ArrayAdapter<BookingObj> arr;
+//                    arr = new ArrayAdapter<BookingObj>(getApplicationContext(), android.R.layout.simple_list_item_1, listBookedTime);
+//                    bookingListings.setAdapter(arr);
+                    arr.addAll(listBookedTime);
+                    arr.notifyDataSetChanged();
                 }
 
                 @Override
