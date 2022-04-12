@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -103,8 +104,8 @@ public class BookingObj implements Serializable {
     @Override
     public String toString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault());
-        return start + " - "
-                +end +" by \n"
+        return simpleDateFormat.format(new Date(start)) + " - "
+                +simpleDateFormat.format(new Date(end)) +" by \n"
                 +this.getUserName();
     }
 }

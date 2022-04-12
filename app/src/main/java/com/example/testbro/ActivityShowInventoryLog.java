@@ -48,22 +48,23 @@ public class ActivityShowInventoryLog extends AppCompatActivity {
 
         Log.d("item name", item.getName());
         itemLog = item.getLog();
+        if (itemLog != null) {
+            for (String itemId : itemLog) {
+                referenceItems = FirebaseDatabase.getInstance().getReference("Bookings").child(itemId);
+                referenceItems.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        BookingObj bookingObj = snapshot.getValue(BookingObj.class);
+                        bookings.add(bookingObj);
+                        myInventoryAdapter.notifyDataSetChanged();
+                    }
 
-        for (String itemId : itemLog) {
-            referenceItems = FirebaseDatabase.getInstance().getReference("Bookings").child(itemId);
-            referenceItems.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    BookingObj bookingObj = snapshot.getValue(BookingObj.class);
-                    bookings.add(bookingObj);
-                    myInventoryAdapter.notifyDataSetChanged();
-                }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+                    }
+                });
+            }
         }
     }
 }

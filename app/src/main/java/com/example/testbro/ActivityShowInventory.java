@@ -99,6 +99,9 @@ public class ActivityShowInventory extends AppCompatActivity implements View.OnC
     public void onNoteClick(int position) {
         // try catch here
         ItemClass item = items.get(position);
+        if (item.getLog()==null) {
+            return;
+        }
         Intent i2 = new Intent(ActivityShowInventory.this, ActivityShowInventoryLog.class);
         i2.putExtra("item", item);
         startActivity(i2);

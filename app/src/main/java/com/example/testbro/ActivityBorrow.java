@@ -128,9 +128,11 @@ public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnI
         myBorrowAdapter.notifyDataSetChanged();
         // show inventory of selected club
         referenceItems = FirebaseDatabase.getInstance().getReference("Clubs").child(clubRef).child("items");
-        referenceItems.addListenerForSingleValueEvent(new ValueEventListener() {
+        referenceItems.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                itemList.clear();
+                myBorrowAdapter.notifyDataSetChanged();
                 for(DataSnapshot item : snapshot.getChildren()){
                     ItemClass itemClass = item.getValue(ItemClass.class);
                     Log.d("item name", itemClass.getName());
