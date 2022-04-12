@@ -1,7 +1,5 @@
 package com.example.testbro;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,9 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
-public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnItemSelectedListener, MyAdapter.OnNoteListener {
+public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnItemSelectedListener, MyBorrowAdapter.OnNoteListener {
 
     // declaration
     Spinner spinner;
@@ -39,7 +35,7 @@ public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnI
     Bundle extras;
 
     RecyclerView recyclerViewBorrow;
-    MyAdapter myAdapter;
+    MyBorrowAdapter myBorrowAdapter;
     ArrayList<ItemClass> itemList;
     FirebaseAuth mAuth;
 
@@ -78,8 +74,8 @@ public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnI
         recyclerViewBorrow = findViewById(R.id.recyclerViewBorrow);
         recyclerViewBorrow.setHasFixedSize(true);
         recyclerViewBorrow.setLayoutManager(new LinearLayoutManager(this));
-        myAdapter = new MyAdapter(this, itemList, this);
-        recyclerViewBorrow.setAdapter(myAdapter);
+        myBorrowAdapter = new MyBorrowAdapter(this, itemList, this);
+        recyclerViewBorrow.setAdapter(myBorrowAdapter);
 
 
         // get all existing clubs and store to clubList
@@ -129,7 +125,7 @@ public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnI
 
     public void refreshRecycler(String clubRef){
         itemList.clear();
-        myAdapter.notifyDataSetChanged();
+        myBorrowAdapter.notifyDataSetChanged();
         // show inventory of selected club
         referenceItems = FirebaseDatabase.getInstance().getReference("Clubs").child(clubRef).child("items");
         referenceItems.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -137,9 +133,10 @@ public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnI
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot item : snapshot.getChildren()){
                     ItemClass itemClass = item.getValue(ItemClass.class);
+                    Log.d("item name", itemClass.getName());
                     itemList.add(new ItemClass(itemClass));
                 }
-                myAdapter.notifyDataSetChanged();
+                myBorrowAdapter.notifyDataSetChanged();
             }
 
             @Override
