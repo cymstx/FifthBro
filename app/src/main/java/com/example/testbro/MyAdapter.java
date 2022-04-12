@@ -1,6 +1,8 @@
 package com.example.testbro;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         ItemClass itemClass = items.get(position);
         holder.itemAvail.setText(itemClass.retAvail());
         holder.itemName.setText(itemClass.getName());
+        holder.item = itemClass;
     }
 
     @Override
@@ -48,6 +51,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView itemAvail, itemName;
         OnNoteListener onNoteListener;
+        ItemClass item;
 
         public MyViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
@@ -57,6 +61,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);
+
+            itemView.findViewById(R.id.generateQr).setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    Log.d("item name", item.getItemID());
+                    Intent i =  new Intent(v.getContext(), ActivityQRGen.class);
+                    i.putExtra("item", item.getItemID());
+                    v.getContext().startActivity(i);
+                }
+            });
         }
 
         @Override

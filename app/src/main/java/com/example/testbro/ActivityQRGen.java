@@ -2,6 +2,7 @@ package com.example.testbro;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,29 +26,19 @@ import net.glxn.qrgen.android.QRCode;
 
 public class ActivityQRGen extends AppCompatActivity{
 
-    String club;
+    String itemID;
     DatabaseReference dbref;
     Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        extras = getIntent().getExtras();
-        club = extras.getString("club");
-        dbref= FirebaseDatabase.getInstance().getReference("Clubs").child(club).child("items").child("itemID");
-        dbref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String itemID = snapshot.getValue(String.class);
-                Bitmap myBitmap = QRCode.from(itemID).bitmap();
-                ImageView myImage = findViewById(R.id.qr_image);
-                myImage.setImageBitmap(myBitmap);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         setContentView(R.layout.activity_qrgenerator);
+        extras = getIntent().getExtras();
+        itemID = extras.getString("item");
+        Log.d("item id", itemID);
+        Bitmap myBitmap = QRCode.from(itemID).bitmap();
+        ImageView myImage = findViewById(R.id.qr_image);
+        myImage.setImageBitmap(myBitmap);
     }
 }

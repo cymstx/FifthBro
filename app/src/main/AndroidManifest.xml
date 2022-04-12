@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Testbro">
         <activity
+            android:name=".ActivityQRGen"
+            android:exported="false"/>
+        <activity
+            android:name=".ActivityQRScanner"
+            android:exported="false"/>
+        <activity
             android:name=".ActivityShowInventoryLog"
             android:exported="false"/>
         <activity
