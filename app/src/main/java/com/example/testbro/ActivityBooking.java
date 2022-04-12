@@ -86,8 +86,10 @@ public class ActivityBooking extends AppCompatActivity {
         referenceClub = db.getReference("Clubs");
         referenceBookings = db.getReference("Bookings");
         referenceTimeperiod = db.getReference("TimePeriods");
-        arr = new ArrayAdapter<BookingObj>(this, android.R.layout.simple_list_item_1, new ArrayList<>());
+        arr = new ArrayAdapter<BookingObj>(this, R.layout.custom_list_view, new ArrayList<>());
         bookingListings.setAdapter(arr);
+
+
 
         extras = getIntent().getExtras();
         if (extras != null) {
@@ -130,7 +132,7 @@ public class ActivityBooking extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 completeBooking();
-                printBookings();
+                finish();
             }
         });
         finishBtn.setOnClickListener(new View.OnClickListener() {
@@ -189,7 +191,6 @@ public class ActivityBooking extends AppCompatActivity {
             }
         });*/
     }
-
 
     public void selectBooking(TextView target, Boolean isStart) {
         final Date now;
@@ -316,7 +317,7 @@ public class ActivityBooking extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
 //                                    Toast.makeText(ActivityBooking.this,"Saved to itemlog", Toast.LENGTH_LONG).show();
-                                    printBookings();
+//                                    printBookings();
                                 }
                             }
                         });
@@ -447,6 +448,7 @@ public class ActivityBooking extends AppCompatActivity {
 //                    ArrayAdapter<BookingObj> arr;
 //                    arr = new ArrayAdapter<BookingObj>(getApplicationContext(), android.R.layout.simple_list_item_1, listBookedTime);
 //                    bookingListings.setAdapter(arr);
+                    arr.clear();
                     arr.addAll(listBookedTime);
                     arr.notifyDataSetChanged();
                 }
