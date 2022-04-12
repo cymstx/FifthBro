@@ -41,7 +41,6 @@ public class MyInventoryAdapter extends RecyclerView.Adapter<MyInventoryAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyInventoryAdapter.MyViewHolder holder, int position) {
         BookingObj booking = bookings.get(position);
-        holder.bookingID.setText(booking.getBookingId());
         holder.bookingUserName.setText(booking.getUserName());
         holder.bookingStartTime.setText(new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault()).format(booking.start));
         holder.bookingEndTime.setText(new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault()).format(booking.end));
@@ -53,11 +52,10 @@ public class MyInventoryAdapter extends RecyclerView.Adapter<MyInventoryAdapter.
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView bookingID, bookingUserName, bookingStartTime, bookingEndTime;
+        TextView bookingUserName, bookingStartTime, bookingEndTime;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            bookingID = itemView.findViewById(R.id.displaybookingID);
             bookingUserName = itemView.findViewById(R.id.displayUserName);
             bookingStartTime = itemView.findViewById(R.id.displayStartTime);
             bookingEndTime = itemView.findViewById(R.id.displayEndTime);

@@ -20,18 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/bookingID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="Booking ID:"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
 
             <TextView
                 android:id="@+id/bookingUserName"
@@ -42,8 +30,8 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                app:layout_constraintRight_toRightOf="@id/bookingID"
-                app:layout_constraintTop_toBottomOf="@id/bookingID"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="2dp"
                 />
 
@@ -73,16 +61,6 @@
                 android:layout_marginTop="2dp"
                 />
 
-            <TextView
-                android:id="@+id/displaybookingID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                app:layout_constraintLeft_toRightOf="@id/bookingID"
-                app:layout_constraintTop_toTopOf="@id/bookingID"
-                android:layout_marginLeft="5dp"
-                />
 
             <TextView
                 android:id="@+id/displayUserName"
@@ -90,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-                app:layout_constraintLeft_toLeftOf="@id/displaybookingID"
+                app:layout_constraintLeft_toRightOf="@id/bookingUserName"
                 app:layout_constraintTop_toTopOf="@id/bookingUserName"
                 />
 
@@ -111,7 +89,7 @@
                 android:textSize="20sp"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toTopOf="@id/bookingEndTime"
-                app:layout_constraintLeft_toLeftOf="@id/displayStartTime"
+                app:layout_constraintLeft_toLeftOf="@id/displayUserName"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
