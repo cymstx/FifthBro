@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_background"
-    tools:context=".ActivityDisplayBookings">
+    tools:context=".ActivityShowInventoryLog">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewBookings"
+        android:id="@+id/recyclerViewLog"
         android:layout_width="409dp"
         android:layout_height="729dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="30dp"
-        />
+        android:layout_marginTop="30dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

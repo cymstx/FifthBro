@@ -86,6 +86,8 @@ public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnI
         referenceClubs.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                clubList.clear();
+                arrayAdapter.notifyDataSetChanged();
                 for (DataSnapshot club : snapshot.getChildren()){
                     clubName = club.child("clubName").getValue().toString();
                     // remove current club from club list
@@ -105,29 +107,10 @@ public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        // refresh recycler view
-        itemList.clear();
-        myAdapter.notifyDataSetChanged();
         // show selected text to tvClub
         textViewSelectedClub.setText(spinner.getSelectedItem().toString());
         String clubRef = spinner.getSelectedItem().toString().trim().toLowerCase().replaceAll("\\s", "");
-        // show inventory of selected club
-        referenceItems = FirebaseDatabase.getInstance().getReference("Clubs").child(clubRef).child("items");
-        referenceItems.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot item : snapshot.getChildren()){
-                    ItemClass itemClass = item.getValue(ItemClass.class);
-                    itemList.add(itemClass);
-                }
-                myAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        refreshRecycler(clubRef);
     }
 
     @Override
@@ -141,12 +124,22 @@ public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnI
         // pass clicked item class to next activity
         Intent i = new Intent(ActivityBorrow.this, ActivityBooking.class);
         i.putExtra("ItemClass", itemClass);
-        /*String clubID = textViewSelectedClub.getText().toString().trim().toLowerCase().replaceAll("\\s","");
-        referenceClubs.child(clubID).addListenerForSingleValueEvent(new ValueEventListener() {
+        startActivity(i);
+    }
+
+    public void refreshRecycler(String clubRef){
+        itemList.clear();
+        myAdapter.notifyDataSetChanged();
+        // show inventory of selected club
+        referenceItems = FirebaseDatabase.getInstance().getReference("Clubs").child(clubRef).child("items");
+        referenceItems.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ClubClass clubClass = snapshot.getValue(ClubClass.class);
-                parserClass = new ParserClass(clubClass);
+                for(DataSnapshot item : snapshot.getChildren()){
+                    ItemClass itemClass = item.getValue(ItemClass.class);
+                    itemList.add(new ItemClass(itemClass));
+                }
+                myAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -154,20 +147,5 @@ public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnI
 
             }
         });
-
-        i.putExtra("ClubClass", parserClass.getObj());
-        referenceUsers.child(authUserID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserClass userClass = snapshot.getValue(UserClass.class);
-                i.putExtra("UserClass", userClass);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
-        startActivity(i);
     }
 }

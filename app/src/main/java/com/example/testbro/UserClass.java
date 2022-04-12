@@ -1,12 +1,13 @@
 package com.example.testbro;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserClass implements Serializable {
 
     private String name, email, clubID, userID, phone, clubName;
-    private HashMap<String, BookingObj> bookings;
+    private ArrayList<String> bookings;
     public UserClass(){
 
     }
@@ -17,7 +18,7 @@ public class UserClass implements Serializable {
         this.phone = phone;
         this.clubName = clubName;
         this.userID = phone+name;
-        this.bookings = new HashMap<>();
+        this.bookings = new ArrayList<>();
     }
 
     public String getName() {
@@ -43,10 +44,10 @@ public class UserClass implements Serializable {
         return clubName;
     }
 
-    public HashMap<String, BookingObj> getBookings(){
+    public ArrayList<String> getBookings(){
         return bookings;
     }
-    public void setBookings(HashMap<String, BookingObj> bookings){
-        this.bookings.putAll(bookings);
+    public void addToBookings(String bookingID) {
+        this.bookings.add(bookingID);
     }
 }

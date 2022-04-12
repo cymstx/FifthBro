@@ -36,7 +36,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ItemClass itemClass = items.get(position);
-        holder.itemAvail.setText(itemClass.getAvailability());
+        holder.itemAvail.setText(itemClass.retAvail());
         holder.itemName.setText(itemClass.getName());
     }
 

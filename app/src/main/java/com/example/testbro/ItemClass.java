@@ -1,37 +1,49 @@
 package com.example.testbro;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class ItemClass implements Serializable {
-    private String name, itemID, clubID, availability;
-    private HashMap<String, BookingObj> log;
+    private String name, itemID, clubID;
+    public boolean availability;
+    private ArrayList<String> log;
 
     public ItemClass(){
 
     }
+    public ItemClass(ItemClass itemClass) {
+        this.clubID = itemClass.getClubID();
+        this.name = itemClass.getName();
+        this.availability = itemClass.getAvailability();
+        this.itemID = itemClass.itemID;
+        this.log = itemClass.getLog();
+    }
+
     public ItemClass(String name, String clubID){
         this.clubID = clubID;
         this.name = name;
-        this.availability = "Available";
+        this.availability = true;
         this.itemID = UUID.randomUUID().toString();
-        this.log = new HashMap<String, BookingObj>();
-        this.log.put("asdf", new BookingObj("string", "string1", "string3", "string6", new TimePeriod(new Date(), new Date())));
+        this.log = new ArrayList<String>();
     }
 
-    public String getAvailability(){
-        return availability;
+    public boolean getAvailability(){
+        return this.availability;
     }
+    public void setAvailability(boolean av) {this.availability = av;}
 
-    public boolean isInStock(){
-        if(this.availability == "Available"){
-            return true;
+    public String retAvail() {
+        if (this.availability) {
+            return "Available";
+        } else {
+            return "Unavailable";
         }
-        return false;
     }
+
 
     public String getName() {
         return name;
@@ -42,14 +54,10 @@ public class ItemClass implements Serializable {
     public String getClubID(){
         return clubID;
     }
-    public void setLog(HashMap<String, BookingObj> log){
-        try{
-            this.log.putAll(log);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void addToLog(String logID) {
+        this.log.add(logID);
     }
-    public HashMap<String, BookingObj> getLog() {
+    public ArrayList<String> getLog() {
         return log;
     }
 }

@@ -1,16 +1,22 @@
 package com.example.testbro;
 
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.UUID;
 
-public class BookingObj {
-    public String id;
+public class BookingObj implements Serializable {
+    public String bookingId;
     private String itemId;
     private String userId;
     private String userName;
     private String itemName;
-    private TimePeriod timing;
+    private String clubId;
+//    public TimePeriod timing;
+    public String start;
+    public String end;
     boolean isLate = false;
     boolean isCheckOut = false;
     boolean isCheckIn = false;
@@ -18,21 +24,25 @@ public class BookingObj {
 
     BookingObj(){}
 
-    BookingObj(String itemId, String userId,String userName, String itemName, TimePeriod timing){
-        this.id = UUID.randomUUID().toString();
+    BookingObj(String itemId, String userId,String userName, String itemName, TimePeriod timing, String clubID){
+        this.bookingId = UUID.randomUUID().toString();
         this.itemId = itemId;
         this.userId = userId;
-        this.timing = timing;
+//        this.timing = timing;
+        this.start = timing.start;
+        this.end = timing.end;
         this.userName = userName;
+        this.clubId = clubID;
         this.itemName = itemName;
     }
 
     public String getBookingId() {
-        return id;
+        return bookingId;
     }
-    public TimePeriod getTiming() {
-        return timing;
-    }
+//    public TimePeriod getTiming() {
+//        return timing;
+//    }
+    public String getClubId(){return clubId;}
 
     public String getItemName() {
         return itemName;
@@ -42,9 +52,9 @@ public class BookingObj {
         return userName;
     }
 
-    public void setTiming(TimePeriod timing) {
-        this.timing = timing;
-    }
+//    public void setTiming(TimePeriod timing) {
+//        this.timing = timing;
+//    }
 
     public String getItemId() {
         return itemId;
@@ -54,18 +64,18 @@ public class BookingObj {
         return userId;
     }
 
-    public boolean isComplete() {
+    public boolean getIsComplete() {
         return isComplete;
     }
 
-    public void forceComplete(){
-        isComplete = true;
+    public void setComplete(boolean complete){
+        isComplete = complete;
     }
     public void forceUncomplete(){
         isComplete = false;
     }
 
-    public boolean isLate() {
+    public boolean getIsLate() {
         return isLate;
     }
 
@@ -73,27 +83,28 @@ public class BookingObj {
         isLate = late;
     }
 
-    public boolean isCheckIn() {
+    public boolean getIsCheckIn() {
         return isCheckIn;
     }
 
-    public boolean isCheckOut() {
+    public boolean getIsCheckOut() {
         return isCheckOut;
     }
 
-    public void setCheckIn(boolean checkIn) {
+    public void setIsCheckIn(boolean checkIn) {
         isCheckIn = checkIn;
     }
 
-    public void setCheckOut(boolean checkOut) {
+    public void setIsCheckOut(boolean checkOut) {
         isCheckOut = checkOut;
     }
 
+    @NonNull
     @Override
     public String toString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault());
-        return simpleDateFormat.format(this.getTiming().getStart()) + " - "
-                +simpleDateFormat.format(this.getTiming().getEnd()) +" by \n"
+        return simpleDateFormat.format(start) + " - "
+                +simpleDateFormat.format(end) +" by \n"
                 +this.getUserName();
     }
 }

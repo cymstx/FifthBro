@@ -16,6 +16,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
+import java.util.Date;
+import java.util.HashMap;
+
 public class ActivityAddItem extends AppCompatActivity implements View.OnClickListener{
 
     // declaration
@@ -72,5 +75,15 @@ public class ActivityAddItem extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
+//        HashMap<String, BookingObj> log = new HashMap<>();
+//        BookingObj obj = new BookingObj("itemId", "userId","userName","itemName", new TimePeriod(new Date(), new Date()));
+//        referenceItem.child(itemClass.getItemID()).child("log").child(obj.getBookingId()).setValue(obj).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if(task.isSuccessful()){
+//                    Toast.makeText(ActivityAddItem.this, "Log added", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
     }
 }

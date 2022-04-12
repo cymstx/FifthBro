@@ -95,6 +95,7 @@ public class ActivityLoggedIn extends AppCompatActivity implements View.OnClickL
             case R.id.bookings:
                 // go to next activity, show all bookings of current user
                 // pass over the current user id for reference
+                startActivity(new Intent(ActivityLoggedIn.this, ActivityDisplayBookings.class));
                 break;
         }
     }
