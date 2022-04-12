@@ -9,7 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MyBookingsAdapter extends RecyclerView.Adapter<MyBookingsAdapter.MyViewHolder> {
 
@@ -35,8 +37,8 @@ public class MyBookingsAdapter extends RecyclerView.Adapter<MyBookingsAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         BookingObj bookingObj = myBookings.get(position);
         holder.itemName.setText(bookingObj.getItemName());
-        holder.itemStartTime.setText(bookingObj.start);
-        holder.itemEndTime.setText(bookingObj.end);
+        holder.itemStartTime.setText(new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault()).format(bookingObj.start));
+        holder.itemEndTime.setText(new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault()).format(bookingObj.end));
     }
 
     @Override

@@ -38,34 +38,37 @@ public class ActivityQRScanner extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(ActivityQRScanner.this, result.getText(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ActivityQRScanner.this, result.getText(), Toast.LENGTH_SHORT).show();
                         if (result.getText().equals(bookingobj.getItemId())) {
                             FirebaseAuth mAuth = FirebaseAuth.getInstance();
                             String userId = mAuth.getCurrentUser().getUid();
                             if (userId.equals(bookingobj.getUserId())) {
-                                try {
-                                    Date start = new SimpleDateFormat("EEE d MMM HH:mm").parse(bookingobj.start);
-                                    Date end = new SimpleDateFormat("EEE d MMM HH:mm").parse(bookingobj.end);
+                                //Toast.makeText(ActivityQRScanner.this, new SimpleDateFormat("EEE d MMM HH:mm").format(new Date(System.currentTimeMillis() +( 3600 * 1000))), Toast.LENGTH_LONG).show();
+                                    Date start = new Date(bookingobj.start);
+                                    Date end = new Date(bookingobj.end);
+                                    //Toast.makeText(ActivityQRScanner.this, start.toString(), Toast.LENGTH_LONG).show();
                                     DatabaseReference dbbooking = FirebaseDatabase.getInstance().getReference("Bookings").child(bookingobj.getBookingId());
                                     DatabaseReference dbitem = FirebaseDatabase.getInstance().getReference("Clubs").child(bookingobj.getClubId()).child("items").child(bookingobj.getItemId());
                                     //checking in item
-                                    if (dbbooking.child("isCheckOut").equals("true")) {
+                                    if (bookingobj.isCheckOut) {
                                         dbbooking.child("isCheckOut").setValue(false);
                                         dbbooking.child("isCheckIn").setValue(true);
                                         dbitem.child("availability").setValue(true);
+                                        Toast.makeText(ActivityQRScanner.this, "Check in successful", Toast.LENGTH_LONG).show();
                                     }
                                     //checking out item
                                     else {
-                                        if (new Date(System.currentTimeMillis()).getTime() > start.getTime() && new Date(System.currentTimeMillis()).getTime() < end.getTime()) {
-                                                dbbooking.child("isCheckOut").setValue(true);
-                                                dbitem.child("availability").setValue(false);
+                                        if ((new Date(System.currentTimeMillis() +( 3600 * 1000)).compareTo(start) >= 0 && new Date(System.currentTimeMillis()).compareTo(end) <= 0) ||(new Date(System.currentTimeMillis()).compareTo(start) >= 0 && new Date(System.currentTimeMillis()).compareTo(end) <= 0)) {
+                                            dbbooking.child("isCheckOut").setValue(true);
+                                            dbitem.child("availability").setValue(false);
+                                            dbbooking.child("isCheckIn").setValue(false);
+                                            Toast.makeText(ActivityQRScanner.this, "Check out successful", Toast.LENGTH_LONG).show();
                                         } else {
-                                            Toast.makeText(ActivityQRScanner.this, "Not in booking slot", Toast.LENGTH_LONG).show();
+                                            //Toast.makeText(ActivityQRScanner.this, "Not in booking slot", Toast.LENGTH_LONG).show();
                                         }
                                     }
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
+                                    finish();
+
                             }
                         }
                     }

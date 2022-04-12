@@ -394,6 +394,9 @@ public class ActivityBooking extends AppCompatActivity {
         bookingListingsTitle.setText(itemName);
         // first we want to sort the bookings by start time
         ArrayList<String> ids = itemInstance.getLog();
+        if(ids == null){
+            return;
+        }
         Log.d("ids",ids.toString());
         referenceBookings.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -410,7 +413,7 @@ public class ActivityBooking extends AppCompatActivity {
                         Log.d("Time Start",i.getValue().toString());
                         Long time = null;
                         try {
-                            time = simpleDateFormat.parse(i.getValue().start).getTime();
+                            time = i.getValue().start;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -433,7 +436,7 @@ public class ActivityBooking extends AppCompatActivity {
                     // now we have the sorted list of key
                     ArrayList<BookingObj> listBookedTime = new ArrayList<>();
                     for (Map.Entry<String, Long> i : list) {
-                        Log.d("sorted", log.get(i.getKey()).start);
+                        Log.d("sorted", new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault()).format(log.get(i.getKey()).start));
                         listBookedTime.add(log.get(i.getKey()));
                     }
                     // booking listing list view adapter.

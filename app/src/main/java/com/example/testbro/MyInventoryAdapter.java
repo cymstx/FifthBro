@@ -17,7 +17,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.BreakIterator;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MyInventoryAdapter extends RecyclerView.Adapter<MyInventoryAdapter.MyViewHolder> {
 
@@ -41,8 +43,8 @@ public class MyInventoryAdapter extends RecyclerView.Adapter<MyInventoryAdapter.
         BookingObj booking = bookings.get(position);
         holder.bookingID.setText(booking.getBookingId());
         holder.bookingUserName.setText(booking.getUserName());
-        holder.bookingStartTime.setText(booking.start);
-        holder.bookingEndTime.setText(booking.end);
+        holder.bookingStartTime.setText(new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault()).format(booking.start));
+        holder.bookingEndTime.setText(new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault()).format(booking.end));
     }
 
     @Override

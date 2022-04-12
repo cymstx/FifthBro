@@ -15,8 +15,8 @@ public class BookingObj implements Serializable {
     private String itemName;
     private String clubId;
 //    public TimePeriod timing;
-    public String start;
-    public String end;
+    public long start;
+    public long end;
     boolean isLate = false;
     boolean isCheckOut = false;
     boolean isCheckIn = false;

@@ -3,50 +3,41 @@ package com.example.testbro;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class TimePeriod {
-    public String start, end;
+    public long start, end;
     public long duration;
 
     TimePeriod(){}
 
     TimePeriod(Date st, Date en){
-        this.start = new SimpleDateFormat("EEE d MMM HH:mm").format(st);
-        this.end = new SimpleDateFormat("EEE d MMM HH:mm").format(en);
+        this.start =st.getTime();
+        this.end = en.getTime();
         this.duration = en.getTime() - st.getTime();
     }
 
-    public String getStart() {
+    public long getStart() {
         return this.start;
     }
 
-    public String getEnd() {
+    public long getEnd() {
         return this.end;
     }
 
     public Date retStart(){
-        try {
-            return new SimpleDateFormat("EEE d MMM HH:mm").parse(start);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return new Date(start);
     }
 
-    public void setStart(String st) {
+    public void setStart(long st) {
         this.start = st;
     }
 
-    public void setEnd(String en) {
+    public void setEnd(long en) {
         this.end = en;
     }
     public Date retEnd(){
-        try {
-            return new SimpleDateFormat("EEE d MMM HH:mm").parse(end);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return new Date(end);
     }
 //    public int gHours(){
 //        return (int)Math.round(TimeUnit.HOURS.convert(this.duration, TimeUnit.MILLISECONDS));
