@@ -22,7 +22,7 @@
     <ListView
         android:id="@+id/CurrentBookings"
         android:layout_width="wrap_content"
-        android:layout_height="303dp"
+        android:layout_height="310dp"
         />
     
     <Button
@@ -32,6 +32,7 @@
         android:layout_gravity="center_horizontal|center_vertical"
         android:text="Select Start"
         android:backgroundTint="@color/light_foreground"
+        android:textColor="@color/white"
         />
 
     <Button
@@ -41,6 +42,7 @@
         android:layout_gravity="center"
         android:text="Select End"
         android:backgroundTint="@color/light_foreground"
+        android:textColor="@color/white"
         />
 
     <TextView
@@ -77,6 +79,7 @@
         android:layout_height="wrap_content"
         android:text="Book Now"
         android:layout_gravity="center"
+        android:textColor="@color/white"
         android:backgroundTint="@color/light_foreground"
         />
 
@@ -84,8 +87,9 @@
         android:id="@+id/doneBooking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Done"
+        android:text="Cancel"
         android:layout_gravity="center"
+        android:textColor="@color/white"
         android:backgroundTint="@color/light_foreground"
         />
 
