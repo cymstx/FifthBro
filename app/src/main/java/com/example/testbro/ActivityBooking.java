@@ -226,11 +226,12 @@ public class ActivityBooking extends AppCompatActivity {
                 .curved()
                 .displayMinutes(false)
                 .defaultDate(now)
-                //.backgroundColor(Color.BLACK)
-                .mainColor(Color.BLACK)
+                .backgroundColor(getResources().getColor(R.color.dark_background))
+                .mainColor(getResources().getColor(R.color.yellow))
                 .minDateRange(minTime)
                 .maxDateRange(maxTime)
                 .title(title)
+                .titleTextColor(getResources().getColor(R.color.white))
                 .listener(new SingleDateAndTimePickerDialog.Listener() {
                     @Override
                     public void onDateSelected(Date date) {

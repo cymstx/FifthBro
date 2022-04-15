@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:cardElevation="8dp"
         app:cardCornerRadius="8dp"
-        android:layout_margin="16dp"
+        android:layout_margin="30dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,6 +55,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@id/borrowItemAvail"
                 app:layout_constraintTop_toTopOf="@id/borrowItemName"
+                android:layout_marginLeft="10dp"
                 />
 
             <TextView
@@ -66,6 +67,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@id/borrowItemAvail"
                 app:layout_constraintTop_toTopOf="@id/borrowItemAvail"
+                android:layout_marginLeft="10dp"
                 />
 
 

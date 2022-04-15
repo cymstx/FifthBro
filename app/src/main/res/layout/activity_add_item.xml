@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:text="Add Item"
         android:textSize="20sp"
+        android:textColor="@color/white"
         android:backgroundTint="@color/blue_middle_ground"
         app:layout_constraintTop_toBottomOf="@id/etItemName"
         app:layout_constraintLeft_toLeftOf="parent"

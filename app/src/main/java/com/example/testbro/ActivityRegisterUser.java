@@ -64,7 +64,6 @@ public class ActivityRegisterUser extends AppCompatActivity implements View.OnCl
                 // register user
                 registerUser();
                 // after register user, go back to login page
-                finish();
                 break;
             case R.id.banner:
                 // back to main activity
@@ -157,6 +156,7 @@ public class ActivityRegisterUser extends AppCompatActivity implements View.OnCl
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if(task.isSuccessful()){
                                                         Toast.makeText(ActivityRegisterUser.this, "Success", Toast.LENGTH_LONG).show();
+                                                        finish();
                                                     }
                                                     else{
                                                         Toast.makeText(ActivityRegisterUser.this, "Not successful", Toast.LENGTH_LONG).show();

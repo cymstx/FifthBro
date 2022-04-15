@@ -66,10 +66,10 @@ public class ActivityLoggedIn extends AppCompatActivity implements View.OnClickL
                 userClass = snapshot.getValue(UserClass.class);
                 String currClub = userClass.getClubName();
                 String name = userClass.getName();
-                String finalName = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+                //String finalName = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
                 if(userClass!=null){
                     textViewClub.setText(currClub);
-                    textViewName.setText(finalName);
+                    textViewName.setText(name);
                 }
             }
 

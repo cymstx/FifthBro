@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue_middle_ground"
         android:text="Add Item"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textColor="@color/white"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
