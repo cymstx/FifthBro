@@ -29,7 +29,7 @@ public class BookingObj implements Serializable {
         this.bookingId = UUID.randomUUID().toString();
         this.itemId = itemId;
         this.userId = userId;
-//        this.timing = timing;
+        //this.timing = timing;
         this.start = timing.start;
         this.end = timing.end;
         this.userName = userName;
