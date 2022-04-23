@@ -145,6 +145,8 @@ public class ActivityRegisterUser extends AppCompatActivity implements View.OnCl
                                         // if club already exist, add current user to the users list of the club
                                         if(clubList.contains(clubID)){
                                             referenceClubs.child(clubID).child("users").child(userClass.getUserID()).setValue(userClass);
+                                            Toast.makeText(ActivityRegisterUser.this, "Success", Toast.LENGTH_LONG).show();
+                                            finish();
                                         }
                                         // if club not exist
                                         else{
