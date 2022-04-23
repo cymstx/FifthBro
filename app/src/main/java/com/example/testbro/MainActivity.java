@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -63,16 +65,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String password = editTextPassword.getText().toString().trim();
 
         // validation
-        if(email.isEmpty()){
+        if(TextUtils.isEmpty(email)){
             editTextEmail.setError("Enter email");
+            Log.i(this.getClass().toString(), "email cannot be empty.");
             editTextEmail.requestFocus();
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             editTextEmail.setError("Input correct email");
             editTextEmail.requestFocus();
         }
-        if(password.isEmpty()){
+        if(TextUtils.isEmpty(password)){
             editTextPassword.setError("Enter password");
+            Log.i(this.getClass().toString(), "password cannot be empty.");
             editTextPassword.requestFocus();
         }
         if(password.length()<6){
@@ -81,17 +85,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         // sign in mAuth
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    startActivity(new Intent(MainActivity.this, ActivityLoggedIn.class));
-                    Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_LONG).show();
+        else {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        startActivity(new Intent(MainActivity.this, ActivityLoggedIn.class));
+                        Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Failed to log in", Toast.LENGTH_LONG).show();
+                    }
                 }
-                else{
-                    Toast.makeText(MainActivity.this, "Failed to log in", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+            });
+        }
     }
 }
