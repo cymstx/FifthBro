@@ -56,7 +56,6 @@ public class ActivityAddItem extends AppCompatActivity implements View.OnClickLi
         switch(view.getId()){
             case R.id.btnAddItem:
                 // add item
-                addItem();
                 if(addItem()){ //destroy current activity only if item was successfully created
                     finish();
                 }
@@ -68,7 +67,7 @@ public class ActivityAddItem extends AppCompatActivity implements View.OnClickLi
         // get name of item from input
         String itemName = etItemName.getText().toString().trim();
         if(TextUtils.isEmpty(itemName)) {
-            etItemName.setError("Enter email");
+            etItemName.setError("Enter item name");
             Log.i(this.getClass().toString(), "item name cannot be empty when adding.");
             Toast.makeText(ActivityAddItem.this,"Items added require a name!", Toast.LENGTH_SHORT).show();
             return false;
@@ -86,15 +85,5 @@ public class ActivityAddItem extends AppCompatActivity implements View.OnClickLi
             });
             return true;
         }
-//        HashMap<String, BookingObj> log = new HashMap<>();
-//        BookingObj obj = new BookingObj("itemId", "userId","userName","itemName", new TimePeriod(new Date(), new Date()));
-//        referenceItem.child(itemClass.getItemID()).child("log").child(obj.getBookingId()).setValue(obj).addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if(task.isSuccessful()){
-//                    Toast.makeText(ActivityAddItem.this, "Log added", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
     }
 }

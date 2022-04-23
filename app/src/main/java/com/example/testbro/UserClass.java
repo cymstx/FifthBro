@@ -47,7 +47,7 @@ public class UserClass implements Serializable {
     public ArrayList<String> getBookings(){
         return bookings;
     }
-    public void addToBookings(String bookingID) {
-        this.bookings.add(bookingID);
-    }
+//    public void addToBookings(String bookingID) {
+//        this.bookings.add(bookingID);
+//    }
 }

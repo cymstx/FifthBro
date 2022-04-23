@@ -34,7 +34,7 @@ public class ItemClass implements Serializable {
     public boolean getAvailability(){
         return this.availability;
     }
-    public void setAvailability(boolean av) {this.availability = av;}
+//    public void setAvailability(boolean av) {this.availability = av;}
 
     public String retAvail() {
         if (this.availability) {
@@ -54,9 +54,9 @@ public class ItemClass implements Serializable {
     public String getClubID(){
         return clubID;
     }
-    public void addToLog(String logID) {
-        this.log.add(logID);
-    }
+//    public void addToLog(String logID) {
+//        this.log.add(logID);
+//    }
     public ArrayList<String> getLog() {
         return log;
     }

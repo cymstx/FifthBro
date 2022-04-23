@@ -29,15 +29,15 @@ public class ClubClass implements Serializable {
     public String getClubID(){
         return clubID;
     }
-    public ArrayList<UserClass> getUsers(){
-        return users;
-    }
-    public ArrayList<ItemClass> getItems(){
-        return items;
-    }
-    public void addUser(UserClass userClass){
-        this.users.add(userClass);
-    }
+//    public ArrayList<UserClass> getUsers(){
+//        return users;
+//    }
+//    public ArrayList<ItemClass> getItems(){
+//        return items;
+//    }
+//    public void addUser(UserClass userClass){
+//        this.users.add(userClass);
+//    }
     public void setLog(HashMap<String, BookingObj> log){
         this.log.putAll(log);
     }

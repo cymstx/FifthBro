@@ -39,7 +39,6 @@ public class ActivityBorrow extends AppCompatActivity implements AdapterView.OnI
     ArrayList<ItemClass> itemList;
     FirebaseAuth mAuth;
 
-    ParserClass parserClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
