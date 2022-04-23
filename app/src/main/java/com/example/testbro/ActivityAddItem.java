@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,26 +57,35 @@ public class ActivityAddItem extends AppCompatActivity implements View.OnClickLi
             case R.id.btnAddItem:
                 // add item
                 addItem();
-                // go back to previous activity after adding 1 item
-                finish();
+                if(addItem()){ //destroy current activity only if item was successfully created
+                    finish();
+                }
                 break;
         }
     }
 
-    private void addItem() {
+    private boolean addItem() {
         // get name of item from input
         String itemName = etItemName.getText().toString().trim();
-        // create new item class using name
-        ItemClass itemClass = new ItemClass(itemName, club);
-        // add item class into database, under current club
-        referenceItem.child(itemClass.getItemID()).setValue(itemClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(ActivityAddItem.this, "Item added", Toast.LENGTH_LONG).show();
+        if(TextUtils.isEmpty(itemName)) {
+            etItemName.setError("Enter email");
+            Log.i(this.getClass().toString(), "item name cannot be empty when adding.");
+            Toast.makeText(ActivityAddItem.this,"Items added require a name!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else{
+            // create new item class using name
+            ItemClass itemClass = new ItemClass(itemName, club);
+            // add item class into database, under current club
+            referenceItem.child(itemClass.getItemID()).setValue(itemClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(ActivityAddItem.this, "Item added", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+            return true;
+        }
 //        HashMap<String, BookingObj> log = new HashMap<>();
 //        BookingObj obj = new BookingObj("itemId", "userId","userName","itemName", new TimePeriod(new Date(), new Date()));
 //        referenceItem.child(itemClass.getItemID()).child("log").child(obj.getBookingId()).setValue(obj).addOnCompleteListener(new OnCompleteListener<Void>() {
