@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         startActivity(new Intent(MainActivity.this, ActivityLoggedIn.class));
-                        Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, R.string.successful, Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(MainActivity.this, "Failed to log in", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, R.string.error_message, Toast.LENGTH_LONG).show();
                     }
                 }
             });

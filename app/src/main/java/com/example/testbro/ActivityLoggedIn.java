@@ -75,7 +75,7 @@ public class ActivityLoggedIn extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ActivityLoggedIn.this,"Something wrong happened", Toast.LENGTH_LONG).show();
+                Toast.makeText(ActivityLoggedIn.this,R.string.error_message, Toast.LENGTH_LONG).show();
             }
         });
     }

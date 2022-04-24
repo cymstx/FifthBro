@@ -69,7 +69,7 @@ public class ActivityAddItem extends AppCompatActivity implements View.OnClickLi
         if(TextUtils.isEmpty(itemName)) {
             etItemName.setError("Enter item name");
             Log.i(this.getClass().toString(), "item name cannot be empty when adding.");
-            Toast.makeText(ActivityAddItem.this,"Items added require a name!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityAddItem.this,R.string.name_required, Toast.LENGTH_SHORT).show();
             return false;
         } else{
             // create new item class using name
@@ -79,7 +79,7 @@ public class ActivityAddItem extends AppCompatActivity implements View.OnClickLi
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(ActivityAddItem.this, "Item added", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityAddItem.this, R.string.successful, Toast.LENGTH_SHORT).show();
                     }
                 }
             });

@@ -145,7 +145,7 @@ public class ActivityRegisterUser extends AppCompatActivity implements View.OnCl
                                         // if club already exist, add current user to the users list of the club
                                         if(clubList.contains(clubID)){
                                             referenceClubs.child(clubID).child("users").child(userClass.getUserID()).setValue(userClass);
-                                            Toast.makeText(ActivityRegisterUser.this, "Success", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(ActivityRegisterUser.this, R.string.successful, Toast.LENGTH_LONG).show();
                                             finish();
                                         }
                                         // if club not exist
@@ -157,11 +157,11 @@ public class ActivityRegisterUser extends AppCompatActivity implements View.OnCl
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if(task.isSuccessful()){
-                                                        Toast.makeText(ActivityRegisterUser.this, "Success", Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(ActivityRegisterUser.this, R.string.successful, Toast.LENGTH_LONG).show();
                                                         finish();
                                                     }
                                                     else{
-                                                        Toast.makeText(ActivityRegisterUser.this, "Not successful", Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(ActivityRegisterUser.this, R.string.error_message, Toast.LENGTH_LONG).show();
                                                     }
                                                 }
                                             });
@@ -170,18 +170,18 @@ public class ActivityRegisterUser extends AppCompatActivity implements View.OnCl
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
-                                        Toast.makeText(ActivityRegisterUser.this, "Error getting clubs", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(ActivityRegisterUser.this, R.string.error_message, Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
                             else{
-                                Toast.makeText(ActivityRegisterUser.this, "Failed to store user class", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ActivityRegisterUser.this, R.string.error_message, Toast.LENGTH_LONG).show();
                             }
                         }
                     });
                 }
                 else{
-                    Toast.makeText(ActivityRegisterUser.this, "Failed to create mAuth", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActivityRegisterUser.this, R.string.error_message, Toast.LENGTH_LONG).show();
                 }
             }
         });

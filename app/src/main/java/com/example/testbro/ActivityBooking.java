@@ -255,9 +255,9 @@ public class ActivityBooking extends AppCompatActivity {
     public void completeBooking() {
         // check for the correct values
         if (start == null || end == null) {
-            Snackbar.make(findViewById(R.id.LinearLayout), "Missing Time", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.LinearLayout), R.string.missing_time, Snackbar.LENGTH_SHORT).show();
         } else if (start.getTime() > end.getTime()) {
-            Snackbar.make(findViewById(R.id.LinearLayout), "End is before Start", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.LinearLayout), R.string.invalid_time, Snackbar.LENGTH_SHORT).show();
         } else {
             // create new booking object
             TimePeriod timing = new TimePeriod(start, end);

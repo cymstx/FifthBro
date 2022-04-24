@@ -54,7 +54,7 @@ public class ActivityQRScanner extends AppCompatActivity {
                                         dbbooking.child("isCheckOut").setValue(false);
                                         dbbooking.child("isCheckIn").setValue(true);
                                         dbitem.child("availability").setValue(true);
-                                        Toast.makeText(ActivityQRScanner.this, "Check in successful", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(ActivityQRScanner.this, R.string.successful_checkin, Toast.LENGTH_LONG).show();
                                     }
                                     //checking out item
                                     else {
@@ -62,7 +62,7 @@ public class ActivityQRScanner extends AppCompatActivity {
                                             dbbooking.child("isCheckOut").setValue(true);
                                             dbitem.child("availability").setValue(false);
                                             dbbooking.child("isCheckIn").setValue(false);
-                                            Toast.makeText(ActivityQRScanner.this, "Check out successful", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(ActivityQRScanner.this, R.string.successful_checkout, Toast.LENGTH_LONG).show();
                                         } else {
                                             //Toast.makeText(ActivityQRScanner.this, "Not in booking slot", Toast.LENGTH_LONG).show();
                                         }

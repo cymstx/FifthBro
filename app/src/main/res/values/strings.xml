@@ -9,4 +9,13 @@
     <string name="previous">Previous</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="error_message">An error occurred</string>
+    <string name="successful">Successful</string>
+    <string name="name_required">Name required!</string>
+    <string name="missing_time">Please enter time</string>
+    <string name="invalid_time">Invalid time</string>
+    <string name="successful_checkin">Check in successful</string>
+    <string name="successful_checkout">Check out successful</string>
+    <string name="no_bookings">No bookings</string>
 </resources>

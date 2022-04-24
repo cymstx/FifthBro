@@ -31,7 +31,6 @@ public class ActivityShowInventory extends AppCompatActivity implements View.OnC
     Bundle extras;
     String club;
     Button btnAddItem;
-    Button showLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +100,7 @@ public class ActivityShowInventory extends AppCompatActivity implements View.OnC
         // try catch here
         ItemClass item = items.get(position);
         if (item.getLog()==null) {
-            Toast.makeText(ActivityShowInventory.this, "No Bookings", Toast.LENGTH_LONG).show();
+            Toast.makeText(ActivityShowInventory.this, R.string.no_bookings, Toast.LENGTH_LONG).show();
             return;
         }
         Intent i2 = new Intent(ActivityShowInventory.this, ActivityShowInventoryLog.class);
