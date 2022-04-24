@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class ActivityLoggedIn extends AppCompatActivity implements View.OnClickL
     private String currentUserID;
     private DatabaseReference referenceUsers;
     private UserClass userClass;
+    private ProgressBar progressBar;
     TextView textViewClub;
 
 
@@ -49,6 +51,8 @@ public class ActivityLoggedIn extends AppCompatActivity implements View.OnClickL
         buttonBookings = (Button) findViewById(R.id.bookings);
         buttonBookings.setOnClickListener(this);
 
+        progressBar = findViewById(R.id.progressBar);
+
         final TextView textViewName = (TextView) findViewById(R.id.displayName);
         textViewClub = (TextView) findViewById(R.id.displayClub);
 
@@ -56,6 +60,10 @@ public class ActivityLoggedIn extends AppCompatActivity implements View.OnClickL
         currentUserID = mAuth.getCurrentUser().getUid();
         db = FirebaseDatabase.getInstance();
         referenceUsers = db.getReference("Users");
+
+        buttonBookings.setClickable(false);
+        buttonInventory.setClickable(false);
+        buttonBorrow.setClickable(false);
 
 
 
@@ -70,6 +78,12 @@ public class ActivityLoggedIn extends AppCompatActivity implements View.OnClickL
                 if(userClass!=null){
                     textViewClub.setText(currClub);
                     textViewName.setText(name);
+
+                    buttonBookings.setClickable(true);
+                    buttonInventory.setClickable(true);
+                    buttonBorrow.setClickable(true);
+
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 
