@@ -1,4 +1,4 @@
-# FifthBro
+<h1 align="center"> FifthBro </h1>
 
 FifthBro is an android app to facilitate resource pooling among clubs in SUTD. 
 
