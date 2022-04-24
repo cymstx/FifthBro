@@ -2,6 +2,7 @@ package com.example.testbro;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,4 +37,9 @@ public class BookingObjTest {
 
     @Test
     public void testToString() {assertEquals("Sun 18 Sep 00:00 - Tue 18 Oct 00:00 by \n" + "John", testClass.toString() ); }
+
+    @After
+    public void tearDown(){
+        testClass = null;
+    }
 }
