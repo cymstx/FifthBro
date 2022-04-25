@@ -30,6 +30,10 @@ With FifthBro, we aim to promote intra-organisational sharing by providing a hub
 - Inventory and user information is stored in Firebase's Realtime Database -- A NoSQL database where data is stored as JSON and synchronized in realtime to every connected client. All clients share one Realtime Database instance and automatically receive updates with the newest data.
 - User authentication: Firebase Authentication SDK provides methods to create and manage users and generates a unique UserID for each user instance.
 
+## System Design
+
+![Why did the image fail to load :(](https://github.com/cymstx/InfoSys1D/blob/main/FifthBro-Page-2.drawio.png?raw=true)
+
 ## Resources
 
 - Documentation links
